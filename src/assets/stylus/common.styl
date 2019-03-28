@@ -1,0 +1,62 @@
+// 文本色
+$default=#fff
+$bg_color=#f4f4f4
+$br_color=#f5f5f5
+$text_title=#444
+$text_content=#666
+
+
+// 主色
+$normal=#536cfe
+$normal_bg=#eff1ff
+$normal_br=#e2e6ff
+$normal_mousedown=#274afe
+$normal_hover=#7388ff
+
+// 警告色
+$warning=#ffa820
+$warning_bg=#fdf6eb
+$warning_br=#fff4e4
+$warning_mousedown=#f79e12
+$warning_hover=#ffbe00
+
+// 错误
+$error=#fe5353
+$error_bg=#fff3f3
+$error_br=#ffdfdf
+$error_mousedown=#f23333
+$error_hover=#fd6e6e
+
+// 成功
+$success=#5dd01f
+$success_bg=#f5fff0
+$success_br=#edffe3
+
+// 使用vw单位布局-将px转为vw
+$vw(v)
+  return (v/7.5)vw
+
+
+.animated
+  animation-duration 1s
+  animation-fill-mode both
+
+@keyframes bounceInDown
+  from,
+  60%,
+  75%,
+  90%,
+  to
+    animation-timing-function cubic-bezier(.215, .61, .355, 1)
+  0%
+    opacity 0
+    transform translate3d(0, -3000px, 0)
+  60%
+    opacity 1
+    transform translate3d(0, 25px, 0)
+  75%
+    transform: translate3d(0, -10px, 0)
+  90%
+    transform translate3d(0, 5px, 0)
+  to
+    transform translate3d(0, 0, 0)
