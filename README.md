@@ -1,5 +1,5 @@
 # x-vue-ui：
-- 基于vue的ui库
+- 基于vue的ui库，github地址 `https://github.com/xiongshuang/sui.git`
 
 ## 注意
 - 此UI框架是针对移动端开发，所以请使用移动端相关事件，如：`@touchend="handleTouchend"`

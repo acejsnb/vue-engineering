@@ -1,6 +1,7 @@
 const path=require('path');
 const webpack=require('webpack');
 const MiniCssExtractPlugin=require('mini-css-extract-plugin'); // 文本分离插件，分离js和css
+const OptimizeCssAssetsPlugin=require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin=require('clean-webpack-plugin'); // 清理垃圾文件
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin'); // vue加载器
@@ -22,7 +23,6 @@ const cssConfig=[
     {
         loader: 'css-loader',
         options: {
-            minimize: true,
             sourceMap: false
         }
     },
@@ -33,7 +33,6 @@ const cssConfig=[
         {
             loader: 'css-loader',
             options: {
-                minimize: true,
                 sourceMap: false
             }
         },
@@ -133,6 +132,12 @@ const config={
     plugins: [
         new webpack.BannerPlugin(`xs build at ${Date.now()}`),
         new VueLoaderPlugin(), // vue加载器
+        new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.css$/g,       //一个正则表达式，指示应优化/最小化的资产的名称。提供的正则表达式针对配置中ExtractTextPlugin实例导出的文件的文件名运行，而不是源CSS文件的文件名。默认为/\.css$/g
+            cssProcessor: require('cssnano'), //用于优化\最小化CSS的CSS处理器，默认为cssnano
+            cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }, //传递给cssProcessor的选项，默认为{}
+            canPrint: true                    //一个布尔值，指示插件是否可以将消息打印到控制台，默认为true
+        }),
         new webpack.LoaderOptionsPlugin({ // stylus加前缀
             options: {
                 stylus: {
@@ -148,7 +153,6 @@ const config={
         }),
         new HappyPack({
             id: 'js_vue', // id值，与loader配置项对应
-            threads: 4, // 配置多少个子进程
             loaders: [{
                 loader: 'babel-loader'
             }], // 用什么loader处理

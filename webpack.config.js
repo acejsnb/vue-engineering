@@ -2,6 +2,7 @@ const path=require('path');
 const webpack=require('webpack');
 const HtmlWebpackPlugin=require('html-webpack-plugin'); // 自动生成index.html
 const MiniCssExtractPlugin=require('mini-css-extract-plugin'); // 文本分离插件，分离js和css
+const OptimizeCssAssetsPlugin=require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin=require('clean-webpack-plugin'); // 清理垃圾文件
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin'); // vue加载器
@@ -10,7 +11,7 @@ const HappyPack = require('happypack'); // 分块打包
 const os=require('os');
 const happyThreadPool=HappyPack.ThreadPool({ size: os.cpus().length });
 
-// 获取本级ip
+// 获取本机ip
 const get_ip=require('./get_ip')();
 
 console.log('******本机ip******:', get_ip);
@@ -31,7 +32,6 @@ const cssConfig=[
     {
         loader: 'css-loader',
         options: {
-            minimize: isProd,
             sourceMap: !isProd
         }
     },
@@ -42,7 +42,6 @@ const cssConfig=[
         {
             loader: 'css-loader',
             options: {
-                minimize: isProd,
                 sourceMap: !isProd
             }
         },
@@ -91,10 +90,9 @@ const config={
             },
             {
                 test: /\.js$/,
-                use: isProd?'happypack/loader?id=js_vue':[{loader: 'babel-loader'}],
+                use: 'happypack/loader?id=js_vue',
                 exclude: file => (
-                    /node_modules/.test(file) &&
-                    !/\.vue\.js/.test(file)
+                    /node_modules/.test(file) && !/\.vue\.js/.test(file)
                 )
             },
             {
@@ -144,6 +142,20 @@ const config={
     plugins: [
         new webpack.BannerPlugin(`xs build at ${Date.now()}`),
         new VueLoaderPlugin(), // vue加载器
+        new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.css$/g,       //一个正则表达式，指示应优化/最小化的资产的名称。提供的正则表达式针对配置中ExtractTextPlugin实例导出的文件的文件名运行，而不是源CSS文件的文件名。默认为/\.css$/g
+            cssProcessor: require('cssnano'), //用于优化\最小化CSS的CSS处理器，默认为cssnano
+            cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }, //传递给cssProcessor的选项，默认为{}
+            canPrint: true                    //一个布尔值，指示插件是否可以将消息打印到控制台，默认为true
+        }),
+        new HappyPack({
+            id: 'js_vue', // id值，与loader配置项对应
+            loaders: [{
+                loader: 'babel-loader'
+            }], // 用什么loader处理
+            threadPool: happyThreadPool, // 共享进程池
+            verbose: true //允许 HappyPack 输出日志
+        }),
         new webpack.LoaderOptionsPlugin({ // stylus加前缀
             options: {
                 stylus: {
@@ -161,16 +173,7 @@ if(isProd){
         new CleanWebpackPlugin([path.join(__dirname, 'dist')]),
         new MiniCssExtractPlugin({ // 分离css
             filename: '[name].css'
-        }),
-        new HappyPack({
-            id: 'js_vue', // id值，与loader配置项对应
-            threads: 4, // 配置多少个子进程
-            loaders: [{
-                loader: 'babel-loader'
-            }], // 用什么loader处理
-            threadPool: happyThreadPool, // 共享进程池
-            verbose: true //允许 HappyPack 输出日志
-        }),
+        })
     );
     config.externals={
         vue: {
@@ -204,6 +207,9 @@ if(isProd){
         , port: 6001 // 端口号
         , open: true // 自动打开浏览器
         , hot: true
+        , overlay: { // 当出现编译器错误或警告时，就在网页上显示一层黑色的背景层和错误信息
+            errors: true
+        }
     };
 }
 
