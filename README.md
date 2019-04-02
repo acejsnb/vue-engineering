@@ -1,4 +1,4 @@
-# x-vue-ui：
+# s-vue-ui：
 - 基于vue的ui库，github地址 `https://github.com/xiongshuang/sui.git`
 
 ## 注意
