@@ -2,9 +2,8 @@
 </script>
 
 <template>
-  <router-view></router-view>
+  Pro2 - page1
 </template>
 
 <style scoped>
-
 </style>
