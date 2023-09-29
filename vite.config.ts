@@ -1,17 +1,64 @@
-import {resolve} from 'path'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import {resolve} from 'path';
+import {defineConfig, loadEnv, mergeConfig} from 'vite';
+import type {UserConfig} from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import {createHtmlPlugin} from 'vite-plugin-html';
+import svgLoader from 'vite-svg-loader';
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    extensions: ['.js', '.ts', '.tsx'], // import引入文件的时候不用加后缀
-    alias: {
-      '@': resolve(__dirname, 'src')
+import devConfig from './config/dev.config'
+import prodConfig from './config/prod.config'
+
+export default defineConfig(({mode}): UserConfig => {
+    const env = loadEnv(mode, process.cwd(), '');
+
+    const config: UserConfig = {
+        publicDir: false,
+        envPrefix: 'MWT_',
+        define: {
+            __MWT_ENV__: JSON.stringify(env.MWT_APP_TPL),
+            __NODE_ENV__: JSON.stringify(env.NODE_ENV),
+            __MWT_API_URL__: JSON.stringify(env.MWT_API_URL),
+            __MWT_SOCKET_URL__: JSON.stringify(env.MWT_SOCKET_URL),
+        },
+        resolve: {
+            extensions: ['.js', '.ts', '.tsx'], // import引入文件的时候不用加后缀
+            alias: {
+                '@': resolve(__dirname, 'src')
+            }
+        },
+        plugins: [
+            vue(),
+            vueJsx(),
+            svgLoader(),
+            createHtmlPlugin({
+                minify: mode === 'production',
+                entry: 'src/main.ts',
+                template: 'index.html',
+                inject: {
+                    data: {
+                        title: 'MWT',
+                    },
+                    tags: [
+                        {
+                            injectTo: 'body-prepend',
+                            tag: 'div',
+                            attrs: {
+                                id: 'app',
+                            },
+                        },
+                    ],
+                },
+            }),
+        ],
+        esbuild: {
+            jsxFactory: 'h',
+            jsxFragment: 'Fragment',
+        },
+    };
+
+    if (mode === 'development') {
+        return mergeConfig(config, devConfig(env));
     }
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 8000
-  }
-})
+    return mergeConfig(config, prodConfig(env));
+});

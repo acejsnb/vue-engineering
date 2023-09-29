@@ -1,13 +1,6 @@
-const routes = [
-    {
-        path: "/",
-        name: "Page1",
-        component: () => import("@/template/pro2/pages/Page1.vue"),
-        meta: {
-            title: "Page1",
-        },
-    },
-    {path: '/page2', name: 'Page2', component: () => import("@/template/pro2/pages/Page2.vue")},
-];
+import generateRoutes, { Pages, PageComps } from "@/scripts/generateRoutes";
 
-export default routes;
+const pages = import.meta.glob('./views/**/page.ts', {eager: true, import: 'default'});
+const pageComps = import.meta.glob('./views/**/*.vue');
+
+export default generateRoutes(pages as Pages, pageComps as PageComps);
