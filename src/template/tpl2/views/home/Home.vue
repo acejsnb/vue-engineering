@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  Pro1 - page2
+  Tpl2 - Home
 </template>
 
 <style scoped>

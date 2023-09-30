@@ -2,8 +2,10 @@
 </script>
 
 <template>
-  Pro1 - Home
+  <h1>Hello Tenant-1!</h1>
+  <router-view></router-view>
 </template>
 
 <style scoped>
+
 </style>

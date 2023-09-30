@@ -6,14 +6,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import {createHtmlPlugin} from 'vite-plugin-html';
 import svgLoader from 'vite-svg-loader';
 
-import devConfig from './config/dev.config'
-import prodConfig from './config/prod.config'
+import devConfig from './config/dev.config';
+import prodConfig from './config/prod.config';
 
 export default defineConfig(({mode}): UserConfig => {
+    // console.log(111,mode);
     const env = loadEnv(mode, process.cwd(), '');
+    // console.log(222,env);
 
     const config: UserConfig = {
-        publicDir: false,
+        publicDir: 'public',
         envPrefix: 'MWT_',
         define: {
             __MWT_ENV__: JSON.stringify(env.MWT_APP_TPL),
@@ -24,7 +26,8 @@ export default defineConfig(({mode}): UserConfig => {
         resolve: {
             extensions: ['.js', '.ts', '.tsx'], // import引入文件的时候不用加后缀
             alias: {
-                '@': resolve(__dirname, 'src')
+                '@': resolve(__dirname, 'src'),
+                'tenant': resolve(__dirname, 'tenant'),
             }
         },
         plugins: [
@@ -39,15 +42,6 @@ export default defineConfig(({mode}): UserConfig => {
                     data: {
                         title: 'MWT',
                     },
-                    tags: [
-                        {
-                            injectTo: 'body-prepend',
-                            tag: 'div',
-                            attrs: {
-                                id: 'app',
-                            },
-                        },
-                    ],
                 },
             }),
         ],

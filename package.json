@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:tenant": "MWT_TENANT=tenantName1 vite",
+    "build:tenant": "MWT_TENANT=tenantName1 vue-tsc && vite build"
   },
   "dependencies": {
     "vue": "^3.3.4",
@@ -17,7 +19,10 @@
     "@vitejs/plugin-legacy": "^4.1.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.2",
+    "less": "^4.2.0",
     "path": "^0.12.7",
+    "rollup-plugin-copy": "^3.5.0",
+    "stylus": "^0.60.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-plugin-cdn-import": "^0.3.5",

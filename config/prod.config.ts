@@ -1,7 +1,7 @@
-import {resolve} from 'path';
 import {Plugin as importToCDN} from "vite-plugin-cdn-import";
 import viteCompression from "vite-plugin-compression";
-// import legacy from '@vitejs/plugin-legacy';
+import legacy from '@vitejs/plugin-legacy';
+import copyPlugin from 'rollup-plugin-copy';
 
 export default (env) =>  {
     return {
@@ -28,16 +28,18 @@ export default (env) =>  {
                 ext: '.gz',
                 deleteOriginFile: false, // 源文件压缩后是否删除
             }),
-            /*legacy({
-                targets: ['defaults', 'not IE 11'],
-            }),*/
+            legacy({
+                targets: ['ios >= 9', 'android >= 3.9', 'chrome >= 61', 'firefox >= 57', 'safari >= 11', 'not IE 11']
+            }),
+
+            // 静态资源处理，首先复制到public目录下，之后vite会把public下的文件复制到dist根目录，这里处理icon和manifest.json
+            copyPlugin({
+                // targets: [{ src: 'src/assets/vue.svg', dest: 'public' }],
+            }),
         ],
         build: {
             outDir: 'dist',
-            target: ['chrome87', 'firefox57', 'firefox57', 'safari11'],
-            // target: 'es5',
             minify: 'terser',
-            cssTarget: ['chrome87', 'firefox57', 'firefox57', 'safari11'],
             assetsDir: 'assets',
             assetsInlineLimit: 4096,
             rollupOptions: {
@@ -47,6 +49,7 @@ export default (env) =>  {
                     chunkFileNames: 'js/[name]-[hash].js',
                     entryFileNames: 'js/[name]-[hash].js',
                     assetFileNames: (assetInfo) => {
+                        console.log(1111,assetInfo);
                         if (assetInfo.name.includes('.html')) {
                             return 'dist/index.html';
                         } else if (assetInfo.name.includes('.css')) {
@@ -60,7 +63,7 @@ export default (env) =>  {
                             return 'vendor'
                         }
                     }
-                }
+                },
             },
             terserOptions: {
                 compress: {

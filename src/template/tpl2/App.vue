@@ -2,8 +2,10 @@
 </script>
 
 <template>
-  Pro2 - page2
+  <h1>Hello Tpl2!</h1>
+  <router-view></router-view>
 </template>
 
 <style scoped>
+
 </style>

@@ -1,0 +1,16 @@
+{
+  "name": "tenantName1",
+  "short_name": "tenantName1",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "description": "tenantName1",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/assets/logo/manifest_logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
