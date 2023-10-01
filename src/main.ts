@@ -6,7 +6,6 @@ import '@/assets/styles/global.less';
     if (TENANT) {
         const globalVar = (await import(`tenant/${TENANT}/index.ts`)).default;
         // 设置window全局变量
-        window.CONFIG = {};
         Object.entries(globalVar).forEach(([key, value]) => {
             window.CONFIG[key] = value;
         });
