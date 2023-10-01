@@ -7,13 +7,13 @@ export default (env) =>  {
                 [env.MWT_BASE_API]: {
                     target: env.MWT_API_URL,
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(new RegExp(`^${env.MWT_BASE_API}`), ''),
+                    rewrite: (path) => path.replace(new RegExp(`^${env.MWT_BASE_API}`), '')
                 },
                 '/socket.io': {
                     target: env.MWT_SOCKET_URL,
-                    ws: true,
-                },
+                    ws: true
+                }
             }
         }
-    }
-}
+    };
+};

@@ -1,16 +1,9 @@
 import '@/assets/styles/variables.css';
 import '@/assets/styles/global.less';
-import {Config} from '@/global';
 
 (async () => {
     const TENANT = import.meta.env.MWT_TENANT;
     if (TENANT) {
-        const globalVar = (await import(`tenant/${TENANT}/index.ts`)).default;
-        // 设置window全局变量
-        window.CONFIG = {} as Config;
-        Object.entries(globalVar).forEach(([key, value]) => {
-            window.CONFIG[key] = value;
-        });
         await import(`tenant/${TENANT}/main.ts`);
         return;
     }

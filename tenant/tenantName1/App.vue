@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {ref } from 'vue';
 
 import SvgVue from '@/assets/iconSvg/home.svg';
 import BgPng from '@/assets/img/bg.png';

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import {RouterLink} from 'vue-router'
-import {routes} from "@/scripts/mergeRoutes";
+import {RouterLink} from 'vue-router';
+import {routes} from '@/scripts/mergeRoutes';
 
 </script>
 
 <template>
-  <h1>Index</h1>
-  <main>
-    <div class="left">
-      <RouterLink v-for="item in routes" :key="item.path" :to="item.path">{{item.name}}</RouterLink>
-    </div>
-    <div class="right"></div>
-  </main>
+    <h1>Index</h1>
+    <main>
+        <div class="left">
+            <RouterLink v-for="item in routes" :key="item.path" :to="item.path">{{item.name}}</RouterLink>
+        </div>
+        <div class="right"></div>
+    </main>
 </template>
 
 <style scoped>

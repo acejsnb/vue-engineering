@@ -8,6 +8,7 @@ export interface PageComps {
     [key: string]: () => Component
 }
 
+// eslint-disable-next-line no-unused-vars
 type GenerateRoutes = (pages: Pages, pageComps: PageComps) => RouteRecordRaw[]
 
 // 格式化模板路由
@@ -20,11 +21,11 @@ const generateRoutes: GenerateRoutes = (pages: Pages, pageComps) => {
             name: (meta as RouteMeta)?.name ?? pathName,
             path,
             component: comps[index],
-            meta,
-        }
+            meta
+        };
     });
 
     return routes as RouteRecordRaw[];
-}
+};
 
 export default generateRoutes;

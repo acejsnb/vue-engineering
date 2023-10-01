@@ -5,8 +5,8 @@
 
 ## 目录
  - 📁 config
-   - 📝 dev.config.ts 开发配置
-   - 📝 prod.config.ts 打包配置
+   - 📝 dev.index.ts 开发配置
+   - 📝 prod.index.ts 打包配置
  - 📁 i18n 国际化翻译（key规范：多个单词下划线命名）
  - 📁 public 静态资源目录，打包会把目录里的所有文件拷贝到输出目录的更目录（注意：不要在此手动添加任何文件）
  - 📁 src 开发模板目录

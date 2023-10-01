@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  Tpl1 - page2
+    Tpl1 - page2
 </template>
 
 <style scoped>
