@@ -5,6 +5,7 @@ import copyPlugin from 'rollup-plugin-copy';
 
 export default (env) =>  {
     const TENANT = env.MWT_TENANT;
+
     return {
         plugins: [
             importToCDN({

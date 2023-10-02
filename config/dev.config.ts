@@ -1,6 +1,6 @@
 export default (env) =>  {
     return {
-        server : {
+        server: {
             host: '0.0.0.0',
             port: Number(env.MWT_PORT || 8000),
             proxy: {

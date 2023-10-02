@@ -15,6 +15,7 @@ export default defineConfig(({mode}): UserConfig => {
     const env = loadEnv(mode, process.cwd(), '');
     // console.log(222,env);
     const TENANT = env.MWT_TENANT;
+
     console.log(333,TENANT);
     // 全局变量（挂在到window上）
     const CONFIG = TenantConfig[TENANT];

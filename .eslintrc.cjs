@@ -67,12 +67,21 @@ module.exports = {
         'no-nested-ternary': 1,
         'consistent-return': 0,
         'no-unused-expressions': 0,
-        // 'comma-dangle': [2, 'always-multiline'],
+        "eqeqeq": 2,
         'comma-dangle': [2, 'never'],
+        "newline-after-var": 2,
+        "array-bracket-spacing": 0,
+        "object-curly-spacing": [0, 'never'],
+        "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
+        "space-before-blocks": 0,
+        "no-irregular-whitespace": 2,
+        "space-infix-ops": 2,
+        "brace-style": [1, "1tbs"],
+        "no-debugger": process.env.NODE_ENV === "production" ? 2 : 0, //禁止使用debugger
         'import/no-extraneous-dependencies': ['error', {devDependencies: true}],
         'import/no-unresolved': [
             2,
-            {ignore: ['.js', '.ts', '.tsx', '^@/', '^./', '^../', '^../Types']}
+            {ignore: ['.js', '.ts', '.tsx', '^@/', '^./', '^../', '^../Types', '^i18n', '^tenant', '^theme']}
         ],
         'import/extensions': [
             'error',

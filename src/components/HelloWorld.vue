@@ -4,6 +4,7 @@ import { ref } from 'vue';
 defineProps<{ msg?: {type: string, default: 'test'} }>();
 
 const count = ref(0);
+
 </script>
 
 <template>
