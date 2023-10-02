@@ -11,6 +11,7 @@
     "build:tenant": "vue-tsc && MWT_TENANT=tenantName1 vite build"
   },
   "dependencies": {
+    "js-func-tools": "^2.0.8",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },

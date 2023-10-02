@@ -30,9 +30,10 @@ export default (env) =>  {
                 ext: '.gz',
                 deleteOriginFile: false // 源文件压缩后是否删除
             }),
-            legacy({
+            // 兼容浏览器版本
+            /*legacy({
                 targets: ['ios >= 9', 'android >= 3.9', 'chrome >= 61', 'firefox >= 57', 'safari >= 11', 'not IE 11']
-            }),
+            }),*/
 
             // 静态资源处理，首先复制到public目录下，之后vite会把public下的文件复制到dist根目录，这里处理icon和manifest.json
             copyPlugin({

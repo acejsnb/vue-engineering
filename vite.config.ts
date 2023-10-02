@@ -16,9 +16,9 @@ export default defineConfig(({mode}): UserConfig => {
     // console.log(222,env);
     const TENANT = env.MWT_TENANT;
 
-    console.log('租户', TENANT, '开始打包...');
+    TENANT && console.log('租户', TENANT, '开始打包...');
     // 全局变量（挂在到window上）
-    const CONFIG = TenantConfig[TENANT];
+    const CONFIG = TenantConfig[TENANT] || {};
     const HtmlPluginParams = {
         minify: mode === 'production',
         entry: TENANT ? `tenant/${TENANT}/main.ts` : 'src/main.ts',
@@ -34,7 +34,7 @@ export default defineConfig(({mode}): UserConfig => {
     const config: UserConfig = {
         publicDir: 'public',
         envPrefix: 'MWT_',
-        define: { CONFIG: CONFIG || {} },
+        define: { CONFIG },
         resolve: {
             extensions: ['.js', '.ts', '.tsx'], // import引入文件的时候不用加后缀
             alias: {
