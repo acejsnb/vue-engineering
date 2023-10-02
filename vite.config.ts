@@ -16,7 +16,7 @@ export default defineConfig(({mode}): UserConfig => {
     // console.log(222,env);
     const TENANT = env.MWT_TENANT;
 
-    console.log(333,TENANT);
+    console.log('租户', TENANT, '开始打包...');
     // 全局变量（挂在到window上）
     const CONFIG = TenantConfig[TENANT];
     const HtmlPluginParams = {
@@ -25,6 +25,7 @@ export default defineConfig(({mode}): UserConfig => {
         template: 'index.html',
         inject: {
             data: {
+                buildtime: new Date().toLocaleString(),
                 title: CONFIG?.name ?? 'MWT'
             }
         }
@@ -38,7 +39,8 @@ export default defineConfig(({mode}): UserConfig => {
             extensions: ['.js', '.ts', '.tsx'], // import引入文件的时候不用加后缀
             alias: {
                 '@': resolve(__dirname, 'src'),
-                'tenant': resolve(__dirname, 'tenant')
+                'tenant': resolve(__dirname, 'tenant'),
+                'theme': resolve(__dirname, 'theme')
             }
         },
         plugins: [
