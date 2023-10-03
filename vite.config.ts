@@ -52,6 +52,11 @@ export default defineConfig(({mode}): UserConfig => {
         esbuild: {
             jsxFactory: 'h',
             jsxFragment: 'Fragment'
+        },
+        css: {
+            modules: {
+                localsConvention: 'camelCaseOnly'
+            }
         }
     };
 
