@@ -6,7 +6,7 @@ interface Component {
     content: string
 }
 
-const Index = defineComponent({
+const IconSvg = defineComponent({
     setup() {
         const iconComps = import.meta.glob('@/assets/iconSvg/*.svg', {as: 'raw'});
         const components = ref<Component[]>([]);
@@ -31,4 +31,4 @@ const Index = defineComponent({
     }
 });
 
-export default Index;
+export default IconSvg;

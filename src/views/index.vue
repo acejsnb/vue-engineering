@@ -5,7 +5,7 @@ import {routes} from '@/scripts/mergeRoutes';
 </script>
 
 <template>
-    <h1>Index</h1>
+    <h1>IconSvg</h1>
     <main>
         <div class="left">
             <RouterLink v-for="item in routes" :key="item.path" :to="item.path">{{item.name}}</RouterLink>

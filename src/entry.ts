@@ -2,7 +2,7 @@ import {createApp} from 'vue';
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
 import App from './App.vue';
 import Index from '@/views/index.vue';
-import IconSvg from '@/views/IconSvg/index';
+import IconSvg from '@/views/iconSvg/IconSvg';
 
 export default async function () {
     const app = createApp(App);
